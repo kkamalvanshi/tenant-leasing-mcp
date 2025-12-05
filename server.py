@@ -1002,8 +1002,10 @@ if __name__ == "__main__":
         # Run with SSE transport for web deployment using uvicorn
         import uvicorn
         from starlette.applications import Starlette
-        from starlette.responses import JSONResponse
+        from starlette.responses import JSONResponse, PlainTextResponse
         from starlette.routing import Route, Mount
+        from starlette.middleware import Middleware
+        from starlette.middleware.cors import CORSMiddleware
         
         # Get the MCP SSE app
         sse_app = mcp.sse_app()
@@ -1022,22 +1024,36 @@ if __name__ == "__main__":
                 "message": "Tenant Leasing MCP Server",
                 "endpoints": {
                     "/health": "Health check",
-                    "/sse": "MCP SSE endpoint"
+                    "/sse": "MCP SSE endpoint",
+                    "/messages": "MCP messages endpoint"
                 }
             })
         
-        # Combine routes
+        # Add CORS middleware to the SSE app
+        middleware = [
+            Middleware(
+                CORSMiddleware,
+                allow_origins=["*"],
+                allow_credentials=True,
+                allow_methods=["*"],
+                allow_headers=["*"],
+            )
+        ]
+        
+        # Combine routes - mount SSE app FIRST to handle /sse and /messages
         app = Starlette(
             routes=[
                 Route("/", root),
                 Route("/health", health_check),
-                Mount("/", app=sse_app),  # Mount MCP SSE at root for /sse endpoint
-            ]
+                Mount("/", app=sse_app),
+            ],
+            middleware=middleware
         )
         
         print(f"🚀 Starting MCP SSE server on {args.host}:{args.port}")
         print(f"📁 Data directory: {DATA_DIR}")
         print(f"📊 Charts directory: {CHARTS_DIR}")
+        print(f"📡 SSE endpoint: http://{args.host}:{args.port}/sse")
         uvicorn.run(app, host=args.host, port=args.port)
     else:
         # Run with stdio for local use

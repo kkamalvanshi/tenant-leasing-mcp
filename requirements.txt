@@ -1,7 +1,8 @@
-mcp
+mcp[cli]
 pandas
 tabulate
 matplotlib
 uvicorn
+starlette
 
 
