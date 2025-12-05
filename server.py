@@ -11,8 +11,8 @@ mcp = FastMCP("Tenant Leasing Analytics")
 # Global connection
 conn = None
 
-# Base directory (where this server.py lives)
-BASE_DIR = "/Users/kkamalva/financial_analysis/MCP/kurt-data"
+# Base directory (where this server.py lives) - works both locally and on Render
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CHARTS_DIR = os.path.join(BASE_DIR, "charts")
 DATA_DIR = os.path.join(BASE_DIR, "tenant-info")
 
@@ -991,16 +991,54 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Tenant Leasing Analytics MCP Server")
     parser.add_argument("--transport", choices=["stdio", "sse"], default="stdio",
                         help="Transport mode: stdio (local) or sse (web)")
-    parser.add_argument("--port", type=int, default=8000,
-                        help="Port for SSE transport (default: 8000)")
+    parser.add_argument("--port", type=int, default=int(os.environ.get("PORT", 8000)),
+                        help="Port for SSE transport (default: 8000 or $PORT)")
     parser.add_argument("--host", default="0.0.0.0",
                         help="Host for SSE transport (default: 0.0.0.0)")
     
     args = parser.parse_args()
     
     if args.transport == "sse":
-        # Run with SSE transport for web deployment
-        mcp.run(transport="sse", sse_params={"host": args.host, "port": args.port})
+        # Run with SSE transport for web deployment using uvicorn
+        import uvicorn
+        from starlette.applications import Starlette
+        from starlette.responses import JSONResponse
+        from starlette.routing import Route, Mount
+        
+        # Get the MCP SSE app
+        sse_app = mcp.sse_app()
+        
+        # Create health check endpoint
+        async def health_check(request):
+            return JSONResponse({
+                "status": "healthy",
+                "service": "Tenant Leasing MCP",
+                "guest_cards": 99,
+                "nearby_units": 99
+            })
+        
+        async def root(request):
+            return JSONResponse({
+                "message": "Tenant Leasing MCP Server",
+                "endpoints": {
+                    "/health": "Health check",
+                    "/sse": "MCP SSE endpoint"
+                }
+            })
+        
+        # Combine routes
+        app = Starlette(
+            routes=[
+                Route("/", root),
+                Route("/health", health_check),
+                Mount("/", app=sse_app),  # Mount MCP SSE at root for /sse endpoint
+            ]
+        )
+        
+        print(f"🚀 Starting MCP SSE server on {args.host}:{args.port}")
+        print(f"📁 Data directory: {DATA_DIR}")
+        print(f"📊 Charts directory: {CHARTS_DIR}")
+        uvicorn.run(app, host=args.host, port=args.port)
     else:
         # Run with stdio for local use
         mcp.run()

@@ -2,5 +2,6 @@ mcp
 pandas
 tabulate
 matplotlib
+uvicorn
 
 
