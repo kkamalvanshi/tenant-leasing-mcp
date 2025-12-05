@@ -4,6 +4,7 @@ import pandas as pd
 import sqlite3
 import os
 import matplotlib
+matplotlib.use('Agg')  # Set backend BEFORE any other matplotlib imports
 from datetime import datetime, timedelta
 import re
 
