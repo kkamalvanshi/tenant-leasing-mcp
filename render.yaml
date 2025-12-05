@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: tenant-leasing-mcp
+    runtime: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python server.py --transport sse --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.10.0"
+    healthCheckPath: /

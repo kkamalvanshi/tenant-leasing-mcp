@@ -1,0 +1,100 @@
+Name,Interest Received,Last Activity Date,Last Activity Type,Status,Move In Preference,Max Rent,Bed/Bath Preference,Pet Preference,Monthly Income,Credit Score
+"Martinez, Sofia",10/01/2025 at 09:15 AM,11/15/2025,Email Sent,Active,11/15/2025,2600.00,2/1.00,Dogs,7500.00,720 to 799
+"Johnson, Michael",10/02/2025 at 10:30 AM,11/16/2025,Email Received,Active,12/01/2025,2800.00,2/1.00,,9200.00,800
+"Kim, Jennifer",10/02/2025 at 02:45 PM,11/14/2025,Email Sent,Active,11/20/2025,2400.00,1/1.00,Cats,6800.00,660 to 719
+"Williams, David",10/03/2025 at 08:22 AM,11/17/2025,Email Sent,Active,-/-,,,8000.00,580 to 619
+"Chen, Lisa",10/03/2025 at 11:40 AM,11/15/2025,Email Sent,Active,12/15/2025,3000.00,2/2.00,,12500.00,740 to 799
+"Brown, James",10/04/2025 at 03:15 PM,11/18/2025,Email Sent,Active,11/01/2025,2500.00,2/1.00,Dogs,8500.00,720 to 799
+"Garcia, Maria",10/04/2025 at 04:50 PM,11/16/2025,Email Received,Active,-/-,,Other,5500.00,620 to 659
+"Lee, Christopher",10/05/2025 at 09:30 AM,11/17/2025,Email Sent,Active,01/01/2026,2700.00,2/1.00,,10000.00,803
+"Patel, Priya",10/05/2025 at 01:20 PM,11/15/2025,Email Sent,Active,12/01/2025,2300.00,1/1.00,Cats,7000.00,660 to 719
+"Thompson, Sarah",10/06/2025 at 10:45 AM,11/18/2025,Email Sent,Active,-/-,,,6500.00,720 to 799
+"Hernandez, Carlos",10/06/2025 at 02:30 PM,11/16/2025,Email Sent,Active,11/25/2025,2900.00,2/1.00,Dogs,11000.00,750
+"White, Amanda",10/07/2025 at 08:15 AM,11/17/2025,Email Received,Active,12/10/2025,2400.00,2/-,,8800.00,680
+"Tran, Kevin",10/07/2025 at 11:55 AM,11/15/2025,Email Sent,Active,-/-,,,9500.00,720 to 799
+"Jackson, Michelle",10/08/2025 at 03:40 PM,11/18/2025,Email Sent,Active,11/15/2025,2600.00,2/1.00,Other,7200.00,620 to 659
+"Robinson, Tyler",10/08/2025 at 05:25 PM,11/16/2025,Email Sent,Active,12/01/2025,2500.00,2/1.00,,8300.00,660 to 719
+"Nguyen, Emily",10/09/2025 at 09:10 AM,11/17/2025,Email Sent,Active,-/-,,Dogs,150000.00,830
+"Clark, Daniel",10/09/2025 at 12:35 PM,11/15/2025,Email Received,Active,11/20/2025,2800.00,2/1.50,,10500.00,740 to 799
+"Lopez, Jessica",10/10/2025 at 02:20 PM,11/18/2025,Email Sent,Active,12/15/2025,2200.00,1/1.00,Cats,6000.00,580 to 619
+"Lewis, Brandon",10/10/2025 at 04:45 PM,11/16/2025,Email Sent,Active,-/-,,,7800.00,720 to 799
+"Walker, Rachel",10/11/2025 at 08:30 AM,11/17/2025,Email Sent,Active,11/30/2025,2700.00,2/1.00,,9000.00,660 to 719
+"Hall, Andrew",10/11/2025 at 11:15 AM,11/15/2025,Email Sent,Active,12/01/2025,3100.00,2/2.00,Dogs,13000.00,800
+"Young, Stephanie",10/12/2025 at 01:50 PM,11/18/2025,Email Received,Active,-/-,,Other,5800.00,620 to 659
+"Allen, Matthew",10/12/2025 at 03:35 PM,11/16/2025,Email Sent,Active,11/15/2025,2500.00,2/1.00,,8200.00,720 to 799
+"King, Nicole",10/13/2025 at 09:40 AM,11/17/2025,Email Sent,Active,12/10/2025,2600.00,2/1.00,Cats,7600.00,660 to 719
+"Wright, Joshua",10/13/2025 at 02:25 PM,11/15/2025,Email Sent,Active,-/-,,,11500.00,740 to 799
+"Scott, Lauren",10/14/2025 at 10:10 AM,11/18/2025,Email Sent,Active,01/15/2026,2400.00,1/1.00,,6500.00,580 to 619
+"Torres, Anthony",10/14/2025 at 12:55 PM,11/16/2025,Email Received,Active,11/25/2025,2800.00,2/1.00,Dogs,9500.00,720 to 799
+"Gonzalez, Brittany",10/15/2025 at 08:45 AM,11/17/2025,Email Sent,Active,-/-,,,7000.00,660 to 719
+"Adams, Ryan",10/15/2025 at 11:30 AM,11/15/2025,Email Sent,Active,12/01/2025,2700.00,2/1.00,,10000.00,803
+"Nelson, Megan",10/16/2025 at 02:15 PM,11/18/2025,Email Sent,Active,11/20/2025,2500.00,2/1.00,Other,8000.00,620 to 659
+"Hill, Justin",10/16/2025 at 04:00 PM,11/16/2025,Email Sent,Active,-/-,,,12000.00,720 to 799
+"Ramirez, Ashley",10/17/2025 at 09:25 AM,11/17/2025,Email Received,Active,12/15/2025,2300.00,1/1.00,Cats,6200.00,660 to 719
+"Campbell, Eric",10/17/2025 at 11:50 AM,11/15/2025,Email Sent,Active,11/01/2025,2900.00,2/1.50,,11000.00,740 to 799
+"Mitchell, Samantha",10/18/2025 at 01:35 PM,11/18/2025,Email Sent,Active,-/-,,Dogs,7500.00,580 to 619
+"Roberts, Kyle",10/18/2025 at 03:20 PM,11/16/2025,Email Sent,Active,12/01/2025,2600.00,2/1.00,,8800.00,720 to 799
+"Carter, Heather",10/19/2025 at 08:05 AM,11/17/2025,Email Sent,Active,11/30/2025,2400.00,2/-,,6800.00,660 to 719
+"Phillips, Jason",10/19/2025 at 10:50 AM,11/15/2025,Email Received,Active,-/-,,,9200.00,620 to 659
+"Evans, Christina",10/20/2025 at 12:40 PM,11/18/2025,Email Sent,Active,12/10/2025,2800.00,2/1.00,Other,10500.00,740 to 799
+"Turner, Adam",10/20/2025 at 02:30 PM,11/16/2025,Email Sent,Active,11/15/2025,2500.00,2/1.00,,7800.00,720 to 799
+"Diaz, Rebecca",10/21/2025 at 09:15 AM,11/17/2025,Email Sent,Active,-/-,,Cats,6500.00,660 to 719
+"Parker, Nathan",10/21/2025 at 11:00 AM,11/15/2025,Email Sent,Active,01/01/2026,3000.00,2/2.00,,13500.00,830
+"Collins, Melissa",10/22/2025 at 01:45 PM,11/18/2025,Email Received,Active,12/01/2025,2200.00,1/1.00,Dogs,5500.00,580 to 619
+"Edwards, Benjamin",10/22/2025 at 03:30 PM,11/16/2025,Email Sent,Active,-/-,,,8500.00,720 to 799
+"Stewart, Kimberly",10/23/2025 at 08:20 AM,11/17/2025,Email Sent,Active,11/25/2025,2700.00,2/1.00,,9000.00,660 to 719
+"Sanchez, Steven",10/23/2025 at 10:05 AM,11/15/2025,Email Sent,Active,12/15/2025,2600.00,2/1.00,Other,10000.00,740 to 799
+"Morris, Laura",10/24/2025 at 11:55 AM,11/18/2025,Email Sent,Active,-/-,,,7200.00,620 to 659
+"Rogers, Timothy",10/24/2025 at 01:40 PM,11/16/2025,Email Received,Active,11/20/2025,2400.00,2/-,,8000.00,720 to 799
+"Reed, Angela",10/25/2025 at 09:30 AM,11/17/2025,Email Sent,Active,12/01/2025,2800.00,2/1.00,Dogs,11500.00,803
+"Cook, Patrick",10/25/2025 at 11:15 AM,11/15/2025,Email Sent,Active,-/-,,Cats,6000.00,660 to 719
+"Morgan, Diana",10/26/2025 at 01:00 PM,11/18/2025,Email Sent,Active,11/30/2025,2500.00,2/1.00,,8300.00,580 to 619
+"Bell, Gregory",10/26/2025 at 02:45 PM,11/16/2025,Email Sent,Active,12/10/2025,2900.00,2/1.50,,12000.00,720 to 799
+"Murphy, Catherine",10/27/2025 at 08:35 AM,11/17/2025,Email Received,Active,-/-,,Other,7500.00,660 to 719
+"Bailey, Jeffrey",10/27/2025 at 10:20 AM,11/15/2025,Email Sent,Active,01/15/2026,2600.00,2/1.00,,9500.00,740 to 799
+"Rivera, Andrea",10/28/2025 at 12:05 PM,11/18/2025,Email Sent,Active,11/15/2025,2300.00,1/1.00,Dogs,6200.00,620 to 659
+"Cooper, Mark",10/28/2025 at 01:55 PM,11/16/2025,Email Sent,Active,-/-,,,10000.00,720 to 799
+"Richardson, Danielle",10/29/2025 at 09:40 AM,11/17/2025,Email Sent,Active,12/01/2025,2700.00,2/1.00,,8800.00,660 to 719
+"Cox, Kenneth",10/29/2025 at 11:25 AM,11/15/2025,Email Received,Active,11/25/2025,2500.00,2/1.00,Cats,7000.00,580 to 619
+"Howard, Victoria",10/30/2025 at 01:10 PM,11/18/2025,Email Sent,Active,-/-,,,11000.00,740 to 799
+"Ward, Richard",10/30/2025 at 02:55 PM,11/16/2025,Email Sent,Active,12/15/2025,2800.00,2/1.00,Other,9200.00,720 to 799
+"Watson, Elizabeth",10/31/2025 at 08:45 AM,11/17/2025,Email Sent,Active,11/20/2025,2400.00,2/-,,6500.00,660 to 719
+"Brooks, Charles",10/31/2025 at 10:30 AM,11/15/2025,Email Sent,Active,-/-,,Dogs,13000.00,830
+"Kelly, Shannon",11/01/2025 at 12:20 PM,11/18/2025,Email Received,Active,12/01/2025,2600.00,2/1.00,,8000.00,620 to 659
+"Sanders, Donald",11/01/2025 at 02:05 PM,11/16/2025,Email Sent,Active,11/30/2025,3000.00,2/2.00,,10500.00,720 to 799
+"Price, Erica",11/02/2025 at 09:50 AM,11/17/2025,Email Sent,Active,-/-,,Cats,5800.00,660 to 719
+"Bennett, George",11/02/2025 at 11:35 AM,11/15/2025,Email Sent,Active,12/10/2025,2500.00,2/1.00,,9000.00,740 to 799
+"Wood, Christine",11/03/2025 at 01:25 PM,11/18/2025,Email Sent,Active,01/01/2026,2700.00,2/1.00,Other,7200.00,580 to 619
+"Barnes, Edward",11/03/2025 at 03:10 PM,11/16/2025,Email Received,Active,-/-,,,11500.00,720 to 799
+"Ross, Tracy",11/04/2025 at 08:55 AM,11/17/2025,Email Sent,Active,11/15/2025,2300.00,1/1.00,Dogs,6000.00,660 to 719
+"Henderson, Ronald",11/04/2025 at 10:40 AM,11/15/2025,Email Sent,Active,12/01/2025,2900.00,2/1.50,,12000.00,803
+"Coleman, Tiffany",11/05/2025 at 12:30 PM,11/18/2025,Email Sent,Active,-/-,,,8500.00,620 to 659
+"Jenkins, Paul",11/05/2025 at 02:15 PM,11/16/2025,Email Sent,Active,11/25/2025,2600.00,2/1.00,Cats,9500.00,720 to 799
+"Perry, Valerie",11/06/2025 at 09:00 AM,11/17/2025,Email Received,Active,12/15/2025,2400.00,2/1.00,,7000.00,660 to 719
+"Powell, Brian",11/06/2025 at 10:45 AM,11/15/2025,Email Sent,Active,-/-,,Other,10000.00,740 to 799
+"Long, Courtney",11/07/2025 at 12:35 PM,11/18/2025,Email Sent,Active,11/20/2025,2800.00,2/1.00,,8200.00,580 to 619
+"Patterson, Scott",11/07/2025 at 02:20 PM,11/16/2025,Email Sent,Active,12/01/2025,2500.00,2/1.00,Dogs,6800.00,720 to 799
+"Hughes, Wendy",11/08/2025 at 08:10 AM,11/17/2025,Email Sent,Active,-/-,,,11000.00,660 to 719
+"Flores, Randy",11/08/2025 at 09:55 AM,11/15/2025,Email Received,Active,11/30/2025,2700.00,2/-,,9200.00,620 to 659
+"Washington, Julie",11/09/2025 at 11:45 AM,11/18/2025,Email Sent,Active,12/10/2025,3100.00,2/2.00,Cats,13500.00,830
+"Butler, Dennis",11/09/2025 at 01:30 PM,11/16/2025,Email Sent,Active,-/-,,,7500.00,720 to 799
+"Simmons, Robin",11/10/2025 at 09:20 AM,11/17/2025,Email Sent,Active,01/15/2026,2400.00,1/1.00,Other,5500.00,660 to 719
+"Foster, Jerry",11/10/2025 at 11:05 AM,11/15/2025,Email Sent,Active,11/15/2025,2600.00,2/1.00,,10000.00,740 to 799
+"Gonzales, Carla",11/11/2025 at 12:55 PM,11/18/2025,Email Received,Active,-/-,,Dogs,8000.00,580 to 619
+"Bryant, Russell",11/11/2025 at 02:40 PM,11/16/2025,Email Sent,Active,12/01/2025,2800.00,2/1.00,,11500.00,720 to 799
+"Alexander, Janice",11/12/2025 at 08:30 AM,11/17/2025,Email Sent,Active,11/25/2025,2500.00,2/1.00,Cats,7200.00,660 to 719
+"Russell, Terry",11/12/2025 at 10:15 AM,11/15/2025,Email Sent,Active,-/-,,,9500.00,620 to 659
+"Griffin, Janet",11/13/2025 at 12:05 PM,11/18/2025,Email Sent,Active,12/15/2025,2900.00,2/1.50,,12000.00,803
+"Hayes, Carl",11/13/2025 at 01:50 PM,11/16/2025,Email Received,Active,11/20/2025,2300.00,1/1.00,Other,6000.00,720 to 799
+"Myers, Marie",11/14/2025 at 09:35 AM,11/17/2025,Email Sent,Active,-/-,,Dogs,8500.00,660 to 719
+"Ford, Wayne",11/14/2025 at 11:20 AM,11/15/2025,Email Sent,Active,12/01/2025,2700.00,2/1.00,,10500.00,740 to 799
+"Hamilton, Gloria",11/15/2025 at 01:10 PM,11/18/2025,Email Sent,Active,11/30/2025,2600.00,2/1.00,Cats,7800.00,580 to 619
+"Graham, Eugene",11/15/2025 at 02:55 PM,11/16/2025,Email Sent,Active,-/-,,,9000.00,720 to 799
+"Sullivan, Alice",11/16/2025 at 08:40 AM,11/17/2025,Email Received,Active,12/10/2025,2400.00,2/-,,6500.00,660 to 719
+"Wallace, Arthur",11/16/2025 at 10:25 AM,11/15/2025,Email Sent,Active,01/01/2026,3000.00,2/2.00,Other,14000.00,830
+"West, Judith",11/17/2025 at 12:15 PM,11/18/2025,Email Sent,Active,-/-,,Dogs,7000.00,620 to 659
+"Cole, Louis",11/17/2025 at 02:00 PM,11/16/2025,Email Sent,Active,11/15/2025,2500.00,2/1.00,,11000.00,720 to 799
+"Hunt, Rose",11/18/2025 at 09:45 AM,11/17/2025,Email Sent,Active,12/01/2025,2800.00,2/1.00,Cats,8200.00,660 to 719
+"Stone, Ralph",11/18/2025 at 11:30 AM,11/15/2025,Email Received,Active,-/-,,,10000.00,740 to 799
+"Martinez, Elena",11/19/2025 at 09:00 AM,11/19/2025,Pre-qualification Form Submitted,Active,12/15/2025,2750.00,2/1.00,Dogs,9800.00,760
+"Thompson, Marcus",11/19/2025 at 02:30 PM,11/19/2025,Pre-qualification Form Submitted,Active,01/01/2026,3200.00,2/2.00,,11500.00,810

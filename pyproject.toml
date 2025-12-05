@@ -1,0 +1,16 @@
+[project]
+name = "tenant-leasing-analytics"
+version = "0.1.0"
+description = "MCP server for tenant leasing analytics - guest cards and market comparisons"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp",
+    "pandas",
+    "tabulate",
+    "matplotlib",
+]
+
+[tool.uv]
+# This is a script-only project, no package to build
+
+

@@ -1,0 +1,10 @@
+run = "pip install -r requirements.txt && python server.py --transport sse --port 8080"
+language = "python3"
+entrypoint = "server.py"
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["python", "server.py", "--transport", "sse", "--port", "8080"]
+
