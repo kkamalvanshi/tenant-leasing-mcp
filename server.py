@@ -3,6 +3,7 @@ from mcp.server.transport_security import TransportSecuritySettings
 import pandas as pd
 import sqlite3
 import os
+import matplotlib
 from datetime import datetime, timedelta
 import re
 
