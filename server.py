@@ -1,12 +1,35 @@
 from mcp.server.fastmcp import FastMCP
+from mcp.server.transport_security import TransportSecuritySettings
 import pandas as pd
 import sqlite3
 import os
 from datetime import datetime, timedelta
 import re
 
-# Initialize FastMCP server
-mcp = FastMCP("Tenant Leasing Analytics")
+# Configure transport security to allow Render domain
+transport_security = TransportSecuritySettings(
+    enable_dns_rebinding_protection=True,
+    allowed_hosts=[
+        "127.0.0.1:*",
+        "localhost:*",
+        "[::1]:*",
+        "tenant-leasing-mcp.onrender.com",
+        "*.onrender.com",
+    ],
+    allowed_origins=[
+        "http://127.0.0.1:*",
+        "http://localhost:*",
+        "http://[::1]:*",
+        "https://tenant-leasing-mcp.onrender.com",
+        "https://*.onrender.com",
+    ]
+)
+
+# Initialize FastMCP server with security settings
+mcp = FastMCP(
+    "Tenant Leasing Analytics",
+    transport_security=transport_security
+)
 
 # Global connection
 conn = None
@@ -1002,12 +1025,12 @@ if __name__ == "__main__":
         # Run with SSE transport for web deployment using uvicorn
         import uvicorn
         from starlette.applications import Starlette
-        from starlette.responses import JSONResponse, PlainTextResponse
+        from starlette.responses import JSONResponse
         from starlette.routing import Route, Mount
         from starlette.middleware import Middleware
         from starlette.middleware.cors import CORSMiddleware
         
-        # Get the MCP SSE app
+        # Get the MCP SSE app (security settings already configured in mcp init)
         sse_app = mcp.sse_app()
         
         # Create health check endpoint
@@ -1029,7 +1052,7 @@ if __name__ == "__main__":
                 }
             })
         
-        # Add CORS middleware to the SSE app
+        # CORS middleware for cross-origin requests
         middleware = [
             Middleware(
                 CORSMiddleware,
@@ -1037,10 +1060,10 @@ if __name__ == "__main__":
                 allow_credentials=True,
                 allow_methods=["*"],
                 allow_headers=["*"],
-            )
+            ),
         ]
         
-        # Combine routes - mount SSE app FIRST to handle /sse and /messages
+        # Create wrapper app with health endpoints
         app = Starlette(
             routes=[
                 Route("/", root),
@@ -1054,7 +1077,15 @@ if __name__ == "__main__":
         print(f"📁 Data directory: {DATA_DIR}")
         print(f"📊 Charts directory: {CHARTS_DIR}")
         print(f"📡 SSE endpoint: http://{args.host}:{args.port}/sse")
-        uvicorn.run(app, host=args.host, port=args.port)
+        
+        # Run with proxy headers for cloud deployment
+        uvicorn.run(
+            app, 
+            host=args.host, 
+            port=args.port,
+            proxy_headers=True,
+            forwarded_allow_ips="*"
+        )
     else:
         # Run with stdio for local use
         mcp.run()
