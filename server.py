@@ -1,5 +1,4 @@
 from mcp.server.fastmcp import FastMCP
-from mcp.server.transport_security import TransportSecuritySettings
 import pandas as pd
 import sqlite3
 import os
@@ -8,30 +7,18 @@ matplotlib.use('Agg')  # Set backend BEFORE any other matplotlib imports
 from datetime import datetime, timedelta
 import re
 
-# Configure transport security to allow Render domain
-transport_security = TransportSecuritySettings(
-    enable_dns_rebinding_protection=True,
-    allowed_hosts=[
-        "127.0.0.1:*",
-        "localhost:*",
-        "[::1]:*",
-        "tenant-leasing-mcp.onrender.com",
-        "*.onrender.com",
-    ],
-    allowed_origins=[
-        "http://127.0.0.1:*",
-        "http://localhost:*",
-        "http://[::1]:*",
-        "https://tenant-leasing-mcp.onrender.com",
-        "https://*.onrender.com",
-    ]
-)
-
-# Initialize FastMCP server with security settings
-mcp = FastMCP(
-    "Tenant Leasing Analytics",
-    transport_security=transport_security
-)
+# Try to import transport security, but don't fail if not available
+try:
+    from mcp.server.transport_security import TransportSecuritySettings
+    transport_security = TransportSecuritySettings(
+        enable_dns_rebinding_protection=False,  # Disabled for cloud deployment
+        allowed_hosts=["*"],
+        allowed_origins=["*"]
+    )
+    mcp = FastMCP("Tenant Leasing Analytics", transport_security=transport_security)
+except (ImportError, TypeError) as e:
+    print(f"Note: Transport security not configured ({e})")
+    mcp = FastMCP("Tenant Leasing Analytics")
 
 # Global connection
 conn = None
