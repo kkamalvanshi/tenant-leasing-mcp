@@ -466,9 +466,8 @@ def generate_leasing_email(
     upcoming_showings: int = 2
 ) -> str:
     """
-    Generate a professional, human-like leasing update email based on actual guest card 
-    and market data. The email maintains a consistent format while incorporating real 
-    insights from the database.
+    Get all the key stats needed to write a leasing update email. Returns structured data
+    that should be used to compose a natural, human-sounding email.
     
     Args:
         recipient_name: Name of email recipient
@@ -547,135 +546,55 @@ def generate_leasing_email(
     market_diff = abs(current_rate - market_avg)
     
     # ==========================================================================
-    # BUILD HUMAN-LIKE EMAIL WITH NATURAL VARIATION
+    # RETURN STRUCTURED DATA FOR CLAUDE TO WRITE THE EMAIL
     # ==========================================================================
     
-    # Opening greeting variations (consistent based on day simulation)
-    greetings = ["Good Morning", "Hi", "Hello"]
-    greeting = greetings[total_inquiries % 3]
-    
-    # Rate change narrative
-    if rate_decreased:
-        rate_narrative = f"As we discussed, I've adjusted the rate down to ${current_rate:,.0f} from ${previous_rate:,.0f}"
-    else:
-        rate_narrative = f"We're currently listed at ${current_rate:,.0f}"
-    
-    # Build prospect quality narrative
-    quality_notes = []
-    if income_qualified >= 10:
-        quality_notes.append(f"{income_qualified} meet our income requirements")
-    if good_credit >= 15:
-        quality_notes.append(f"{good_credit} have good to excellent credit")
-    if can_afford >= 20:
-        quality_notes.append(f"{can_afford} can afford our asking rent")
-    
-    quality_narrative = ""
-    if quality_notes:
-        quality_narrative = f" Looking at the prospect pool, {', and '.join(quality_notes[:2])}."
-    
-    # Pet situation
-    pet_narrative = ""
-    if dogs_count > 0 or cats_count > 0:
-        pet_narrative = f" Worth noting: {dogs_count} prospects have dogs and {cats_count} have cats, so we should confirm our pet policy is clear in all communications."
-    
-    # Showing outcome narrative
-    if showings_attended > 0 and interested_parties > 0:
-        if interested_parties == showings_attended:
-            interest_narrative = "All of them expressed genuine interest"
-        else:
-            interest_narrative = f"Of those, {interested_parties} seemed genuinely interested in the unit"
-    else:
-        interest_narrative = "Unfortunately, none have committed to applying yet"
-    
-    # Application status
-    if withdrawn_applications > 0:
-        app_reasons = [
-            "One decided they needed a ground floor apartment and the other stopped responding",
-            "One found a place closer to work, and we lost contact with the other",
-            "One's move-in timeline changed, and the other went with a different property"
-        ]
-        app_narrative = app_reasons[withdrawn_applications % 3]
-    else:
-        app_narrative = "We haven't had any applications fall through yet"
-    
-    # Upcoming actions
-    if upcoming_showings > 0:
-        upcoming_narrative = f"I have {upcoming_showings} showing{'s' if upcoming_showings > 1 else ''} scheduled for this weekend and will follow up with each party afterward."
-    else:
-        upcoming_narrative = "I'm actively reaching out to recent inquiries to schedule more showings this week."
-    
-    # Market context
-    market_narrative = f"For context, comparable units in the area are averaging ${market_avg:,.0f}, putting us about ${market_diff:,.0f} {market_position} the market average."
-    
-    # ==========================================================================
-    # COMPOSE THE EMAIL
-    # ==========================================================================
-    
-    email_body = f"""{greeting} {recipient_name},
+    output = f"""## Email Context & Data
 
-Just wanted to give you a quick update on where we stand with the unit.
+**Recipients:**
+- To: {recipient_name}
+- From: {sender_name}
 
-Over the past week, we received {recent_inquiries} new inquiries, bringing our total to {total_inquiries} since listing. {rate_narrative}, and since making that change, we've picked up {new_after_rate_change} additional leads.{quality_narrative}
+**Pricing:**
+- Current Rate: ${current_rate:,.0f}
+- Previous Rate: ${previous_rate:,.0f}
+- Rate Change: {"Decreased by $" + str(int(rate_change)) if rate_decreased else "No change"}
+- Market Average: ${market_avg:,.0f}
+- Market Position: ${market_diff:,.0f} {market_position} market average
 
-I sent showing invitations to everyone in our guest card system. {showings_confirmed} confirmed they'd attend, and {showings_attended} actually showed up. {interest_narrative}. I've followed up with each of them and am waiting to hear back.
+**Guest Card Stats (from database):**
+- Total Inquiries: {total_inquiries}
+- New This Week: ~{recent_inquiries}
+- Active Prospects: {active_prospects}
+- Engaged (responded to emails): {engaged_prospects}
+- Pre-qualification Forms Submitted: {prequal_count}
 
-To date, we've had {total_showings_to_date} scheduled showings and received {total_applications} application{'s' if total_applications != 1 else ''}. {app_narrative}.{pet_narrative}
+**Prospect Quality:**
+- Income Qualified (3x rent = ${min_income:,.0f}+): {income_qualified}
+- Can Afford ${current_rate:,.0f} Rent: {can_afford}
+- Good Credit (720+): {good_credit}
+- Have Dogs: {dogs_count}
+- Have Cats: {cats_count}
 
-{upcoming_narrative}
+**Showing Activity (user provided):**
+- Showings Confirmed: {showings_confirmed}
+- Showings Attended: {showings_attended}
+- Interested Parties: {interested_parties}
+- Upcoming Showings: {upcoming_showings}
 
-{market_narrative}
-
-I'll keep you posted as things develop. Let me know if you have any questions or if there's anything specific you'd like me to focus on.
-
-Thanks,
-{sender_name}"""
-
-    # ==========================================================================
-    # FORMAT OUTPUT WITH DATA SUMMARY
-    # ==========================================================================
-    
-    output = f"""## 📧 Generated Leasing Update Email
+**Applications:**
+- Pending: {pending_applications}
+- Withdrawn: {withdrawn_applications}
+- Total to Date: {total_applications}
 
 ---
 
-**To:** {recipient_name}  
-**From:** {sender_name}  
-**Subject:** Weekly Leasing Update - Unit Status
-
----
-
-{email_body}
-
----
-
-### 📊 Data Used to Generate This Email:
-
-| Metric | Value |
-|--------|-------|
-| Total Inquiries | {total_inquiries} |
-| Active Prospects | {active_prospects} |
-| Engaged (Responded) | {engaged_prospects} |
-| Pre-qual Submissions | {prequal_count} |
-| Can Afford ${current_rate:,.0f} | {can_afford} |
-| Income Qualified (3x rent) | {income_qualified} |
-| Good Credit (720+) | {good_credit} |
-| Have Dogs | {dogs_count} |
-| Have Cats | {cats_count} |
-| Market Avg Rent | ${market_avg:,.0f} |
-| Our Rate | ${current_rate:,.0f} |
-| Market Position | {market_position.title()} avg by ${market_diff:,.0f} |
-
-### 📋 Showing Activity (User Provided):
-
-| Metric | Value |
-|--------|-------|
-| Showings Confirmed | {showings_confirmed} |
-| Showings Attended | {showings_attended} |
-| Interested Parties | {interested_parties} |
-| Upcoming Showings | {upcoming_showings} |
-| Pending Applications | {pending_applications} |
-| Withdrawn Applications | {withdrawn_applications} |
-"""
+**INSTRUCTION:** Using the data above, write a natural, conversational email from {sender_name} to {recipient_name}. 
+- Sound like a real person, not a template
+- Be concise but warm
+- Include the key metrics naturally woven into sentences
+- Mention any challenges honestly but with a positive outlook
+- End with clear next steps"""
     
     return output
 
