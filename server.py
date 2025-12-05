@@ -122,16 +122,31 @@ except Exception as e:
 # UTILITY FUNCTIONS
 # =============================================================================
 
-def save_chart(fig, title: str) -> str:
-    """Save a matplotlib figure and return the filepath."""
+def save_chart(fig, title: str, return_base64: bool = True) -> dict:
+    """Save a matplotlib figure and return filepath and optionally base64 data."""
     import matplotlib.pyplot as plt
+    import base64
+    from io import BytesIO
+    
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     safe_title = "".join(c if c.isalnum() else "_" for c in title) if title else "chart"
     filename = f"{safe_title}_{timestamp}.png"
     filepath = os.path.join(CHARTS_DIR, filename)
+    
+    # Save to file
     fig.savefig(filepath, format='png', dpi=150, bbox_inches='tight', facecolor='white')
+    
+    # Generate base64 if requested
+    base64_data = None
+    if return_base64:
+        buf = BytesIO()
+        fig.savefig(buf, format='png', dpi=150, bbox_inches='tight', facecolor='white')
+        buf.seek(0)
+        base64_data = base64.b64encode(buf.read()).decode('utf-8')
+        buf.close()
+    
     plt.close(fig)
-    return filepath
+    return {"filepath": filepath, "filename": filename, "base64": base64_data}
 
 
 # =============================================================================
@@ -824,12 +839,12 @@ def create_market_report() -> str:
     ax6.set_title('Prospect Activity Types', fontsize=12, fontweight='bold')
     
     plt.tight_layout()
-    filepath = save_chart(fig, "market_report")
+    chart_result = save_chart(fig, "market_report")
     
-    # Generate summary stats
+    # Generate summary stats with embedded image
     summary = f"""## 📊 Market Report Generated
 
-**Report saved to:** `{filepath}`
+**Report saved to:** `{chart_result['filepath']}`
 
 ### Key Insights:
 
@@ -851,7 +866,7 @@ def create_market_report() -> str:
 5. **Market Price Comparison** - Bar chart comparing listings to our rate
 6. **Activity Types** - Pie chart of prospect engagement
 
-Open the saved file to view the complete visual report.
+![Market Report](data:image/png;base64,{chart_result['base64']})
 """
     
     return summary
@@ -1004,9 +1019,14 @@ Available chart types:
 """
     
     plt.tight_layout()
-    filepath = save_chart(fig, chart_type)
+    chart_result = save_chart(fig, chart_type)
     
-    return f"📊 Chart saved to: `{filepath}`\n\nOpen this file to view the visualization."
+    return f"""📊 Chart Generated: **{chart_type}**
+
+**Saved to:** `{chart_result['filepath']}`
+
+![{chart_type}](data:image/png;base64,{chart_result['base64']})
+"""
 
 
 if __name__ == "__main__":
@@ -1027,6 +1047,7 @@ if __name__ == "__main__":
         import uvicorn
         from starlette.applications import Starlette
         from starlette.responses import JSONResponse
+        from starlette.requests import Request
         from starlette.routing import Route, Mount
         from starlette.middleware import Middleware
         from starlette.middleware.cors import CORSMiddleware
@@ -1049,8 +1070,88 @@ if __name__ == "__main__":
                 "endpoints": {
                     "/health": "Health check",
                     "/sse": "MCP SSE endpoint",
-                    "/messages": "MCP messages endpoint"
+                    "/messages": "MCP messages endpoint",
+                    "/api/tools/call": "Direct tool call REST endpoint"
                 }
+            })
+        
+        # Direct REST endpoint for tool calls (bypasses MCP session requirement)
+        async def call_tool(request: Request):
+            """Direct REST API endpoint to call MCP tools without session management."""
+            try:
+                body = await request.json()
+                tool_name = body.get("name") or body.get("tool")
+                tool_args = body.get("arguments") or body.get("args") or body.get("input") or {}
+                
+                if not tool_name:
+                    return JSONResponse({
+                        "error": "Missing 'name' or 'tool' in request body"
+                    }, status_code=400)
+                
+                # Call the appropriate tool function
+                result = None
+                try:
+                    if tool_name == "get_schema":
+                        result = get_schema()
+                    elif tool_name == "query_database":
+                        result = query_database(tool_args.get("query", "SELECT 1"))
+                    elif tool_name == "guest_card_summary":
+                        result = guest_card_summary()
+                    elif tool_name == "qualified_prospects":
+                        result = qualified_prospects(
+                            min_income=float(tool_args.get("min_income", 7200)),
+                            min_credit=str(tool_args.get("min_credit", "660"))
+                        )
+                    elif tool_name == "market_rent_analysis":
+                        result = market_rent_analysis()
+                    elif tool_name == "generate_leasing_email":
+                        result = generate_leasing_email(**tool_args)
+                    elif tool_name == "create_market_report":
+                        result = create_market_report()
+                    elif tool_name == "create_individual_chart":
+                        result = create_individual_chart(tool_args.get("chart_type", "rent_histogram"))
+                    else:
+                        return JSONResponse({
+                            "error": f"Unknown tool: {tool_name}",
+                            "available_tools": [
+                                "get_schema", "query_database", "guest_card_summary",
+                                "qualified_prospects", "market_rent_analysis",
+                                "generate_leasing_email", "create_market_report",
+                                "create_individual_chart"
+                            ]
+                        }, status_code=400)
+                    
+                    return JSONResponse({
+                        "result": {
+                            "content": [{"type": "text", "text": result}]
+                        }
+                    })
+                    
+                except Exception as e:
+                    import traceback
+                    return JSONResponse({
+                        "error": f"Tool execution error: {str(e)}",
+                        "traceback": traceback.format_exc()
+                    }, status_code=500)
+                    
+            except Exception as e:
+                return JSONResponse({
+                    "error": f"Request parsing error: {str(e)}"
+                }, status_code=400)
+        
+        # List available tools
+        async def list_tools(request):
+            return JSONResponse({
+                "tools": [
+                    {"name": "get_schema", "description": "Get database schema"},
+                    {"name": "query_database", "description": "Execute SQL query", "args": ["query"]},
+                    {"name": "guest_card_summary", "description": "Get guest card summary"},
+                    {"name": "qualified_prospects", "description": "Find qualified prospects", "args": ["min_income", "min_credit"]},
+                    {"name": "market_rent_analysis", "description": "Analyze market rent"},
+                    {"name": "generate_leasing_email", "description": "Generate leasing email"},
+                    {"name": "create_market_report", "description": "Create visual market report"},
+                    {"name": "create_individual_chart", "description": "Create specific chart", "args": ["chart_type"]}
+                ]
             })
         
         # CORS middleware for cross-origin requests
@@ -1064,11 +1165,13 @@ if __name__ == "__main__":
             ),
         ]
         
-        # Create wrapper app with health endpoints
+        # Create wrapper app with REST and MCP endpoints
         app = Starlette(
             routes=[
                 Route("/", root),
                 Route("/health", health_check),
+                Route("/api/tools", list_tools, methods=["GET"]),
+                Route("/api/tools/call", call_tool, methods=["POST"]),
                 Mount("/", app=sse_app),
             ],
             middleware=middleware
